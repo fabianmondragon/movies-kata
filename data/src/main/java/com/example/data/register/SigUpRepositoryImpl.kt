@@ -14,7 +14,7 @@ class SigUpRepositoryImpl @Inject constructor(
     private val sigUpRemoteDataSource: SigUpRemoteDataSource,
     private val sigUpLocalDataSource: SigUpLocalDataSource
 ) : SigUpRepository {
-    override suspend fun userIsRegistered(userToRegister: UserDto) {
+    override suspend fun userIsSigUp(userToRegister: UserDto) {
 
     }
 

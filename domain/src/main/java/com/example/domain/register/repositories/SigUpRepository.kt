@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface SigUpRepository {
 
-    suspend fun userIsRegistered(userToRegister: UserDto)
+    suspend fun userIsSigUp(userToRegister: UserDto)
 
     suspend fun sigUpUser(userToRegister: UserDto): Flow<ResultMovies<UserDto, Exception>>
 }
