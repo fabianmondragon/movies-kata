@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "347672235966",
+    "project_id": "kata-movies",
+    "storage_bucket": "kata-movies.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347672235966:android:ceb6ee7095107c8e33b3ef",
+        "android_client_info": {
+          "package_name": "com.example.kata_pokemon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347672235966-72l5jqvbvugqht2hm050cihc2fc6i82j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxAKf8Q18KnU-psFFZR8dVfQcs0K1d66c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347672235966-72l5jqvbvugqht2hm050cihc2fc6i82j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:347672235966:android:07b1cd1c004482cd33b3ef",
+        "android_client_info": {
+          "package_name": "com.example.katamovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "347672235966-72l5jqvbvugqht2hm050cihc2fc6i82j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxAKf8Q18KnU-psFFZR8dVfQcs0K1d66c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "347672235966-72l5jqvbvugqht2hm050cihc2fc6i82j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

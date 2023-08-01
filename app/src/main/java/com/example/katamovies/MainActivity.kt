@@ -10,8 +10,16 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.katamovies.signup.SigInFragment
 import com.example.katamovies.ui.theme.KatamoviesTheme
+import com.example.katamovies.utils.Route
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +30,32 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    setupNavigation()
                 }
             }
         }
     }
+}
+
+@Composable
+fun setupNavigation() {
+    var navController = rememberNavController()
+    NavHost(
+        navController = navController,
+        startDestination = Route.SigIn.route
+    ) {
+        composable(
+            route = Route.SigIn.route
+        )
+        {
+            goToSigIn(navController)
+        }
+    }
+}
+
+@Composable
+fun goToSigIn(navController: NavController){
+    SigInFragment(navController)
 }
 
 @Composable
