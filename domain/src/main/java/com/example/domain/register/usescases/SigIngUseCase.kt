@@ -6,7 +6,7 @@ import com.example.domain.register.repositories.SigUpRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class SigIngUseCase @Inject constructor(
+class SigIngUseCase(
     val repository: SigUpRepository
    ){
 
