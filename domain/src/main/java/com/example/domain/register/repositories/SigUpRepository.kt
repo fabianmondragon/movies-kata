@@ -4,8 +4,9 @@ import com.example.domain.register.ResultMovies
 import com.example.domain.register.dtos.UserDto
 import kotlinx.coroutines.flow.Flow
 
-interface RegisterRepository {
+interface SigUpRepository {
 
     suspend fun userIsRegistered(userToRegister: UserDto)
-    suspend fun registerUser(userToRegister: UserDto): Flow<ResultMovies<UserDto, Exception>>
+
+    suspend fun sigUpUser(userToRegister: UserDto): Flow<ResultMovies<UserDto, Exception>>
 }
