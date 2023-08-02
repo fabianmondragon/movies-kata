@@ -16,7 +16,6 @@ class SigInViewModel @Inject constructor(
 ): ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-
     fun logIn(){
         coroutineScope.launch {
             sigIngUseCase.sigIngUser(

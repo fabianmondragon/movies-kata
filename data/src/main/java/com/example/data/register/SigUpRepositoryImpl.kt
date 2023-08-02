@@ -36,7 +36,7 @@ class SigUpRepositoryImpl @Inject constructor(
                     }
                 }
             }
-        }catch (e: Exception){
+        } catch (e: Exception) {
             println("${e.message}")
         }
         return flow {

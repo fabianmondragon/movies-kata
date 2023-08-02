@@ -1,6 +1,8 @@
 package com.example.katamovies.di
 
+import com.example.domain.register.repositories.MoviesRepository
 import com.example.domain.register.repositories.SigUpRepository
+import com.example.domain.register.usescases.MoviesUseCase
 import com.example.domain.register.usescases.SigIngUseCase
 import dagger.Module
 import dagger.Provides
@@ -17,4 +19,12 @@ object PresentationModule {
     ): SigIngUseCase {
         return SigIngUseCase(repository)
     }
+
+    @Provides
+    fun provideMoviesUseCase(
+        moviesRepository: MoviesRepository
+    ): MoviesUseCase {
+        return MoviesUseCase( moviesRepository)
+    }
+
 }

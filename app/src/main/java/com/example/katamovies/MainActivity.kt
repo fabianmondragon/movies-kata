@@ -11,9 +11,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.katamovies.movies.MoviesFragment
 import com.example.katamovies.signup.SigInFragment
 import com.example.katamovies.ui.theme.KatamoviesTheme
 import com.example.katamovies.utils.Route
@@ -50,7 +52,17 @@ fun setupNavigation() {
         {
             goToSigIn(navController)
         }
+        composable (
+            route = Route.List.route
+        ){
+            goToMoviesFragment(navController)
+        }
     }
+}
+
+@Composable
+fun goToMoviesFragment(navController: NavHostController) {
+    MoviesFragment(navController = navController )
 }
 
 @Composable
