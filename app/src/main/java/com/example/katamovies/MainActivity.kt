@@ -52,9 +52,9 @@ fun setupNavigation() {
         {
             goToSigIn(navController)
         }
-        composable (
+        composable(
             route = Route.List.route
-        ){
+        ) {
             goToMoviesFragment(navController)
         }
     }
@@ -62,11 +62,11 @@ fun setupNavigation() {
 
 @Composable
 fun goToMoviesFragment(navController: NavHostController) {
-    MoviesFragment(navController = navController )
+    MoviesFragment(navController = navController)
 }
 
 @Composable
-fun goToSigIn(navController: NavController){
+fun goToSigIn(navController: NavController) {
     SigInFragment(navController)
 }
 

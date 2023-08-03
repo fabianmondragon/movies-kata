@@ -12,13 +12,13 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel @Inject constructor(
     private val moviesUseCase: MoviesUseCase
-):ViewModel() {
+) : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    fun getMovies (){
+    fun getMovies() {
         coroutineScope.launch {
             moviesUseCase.getMovies().collect { resultMovies ->
-                when (resultMovies){
+                when (resultMovies) {
                     is ResultMovies.Success -> {
                         resultMovies.value
                     }

@@ -1,4 +1,4 @@
-package com.example.data.movies
+package com.example.data.movies.mappers
 
 import com.example.data.movies.response.Movie
 import com.example.domain.register.dtos.MovieD
