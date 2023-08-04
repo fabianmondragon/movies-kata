@@ -1,6 +1,7 @@
 package com.example.data.movies.mappers
 
 import com.example.data.movies.response.Movie
+import com.example.data.utils.ConstantData
 import com.example.domain.register.dtos.MovieD
 
 class MapperMovies {
@@ -16,7 +17,7 @@ class MapperMovies {
                 originalTitle = movie.originalTitle,
                 overview = movie.overview,
                 popularity = movie.popularity,
-                posterPath = movie.posterPath,
+                posterPath = ConstantData.BASE_URL_IMAGE+movie.posterPath,
                 releaseDate = movie.releaseDate,
                 title = movie.title,
                 video = movie.video,

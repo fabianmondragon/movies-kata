@@ -1,7 +1,7 @@
 package com.example.data
 
 import com.example.data.movies.service.MoviesService
-import com.example.data.register.utils.ConstantData.Generals.BASE_URL
+import com.example.data.utils.ConstantData.Generals.BASE_URL
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
