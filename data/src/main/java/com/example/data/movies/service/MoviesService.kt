@@ -1,7 +1,7 @@
 package com.example.data.movies.service
 
 import com.example.data.movies.response.MovieResponse
-import com.example.data.register.utils.ConstantData
+import com.example.data.utils.ConstantData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

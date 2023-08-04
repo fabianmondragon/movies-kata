@@ -15,7 +15,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.katamovies.movies.MoviesFragment
+import com.example.katamovies.movies.screen.MoviesFragment
 import com.example.katamovies.signup.SigInFragment
 import com.example.katamovies.ui.theme.KatamoviesTheme
 import com.example.katamovies.utils.Route
@@ -50,7 +50,7 @@ fun setupNavigation() {
             route = Route.SigIn.route
         )
         {
-            goToSigIn(navController)
+            goToMoviesFragment(navController)
         }
         composable(
             route = Route.List.route
