@@ -7,7 +7,7 @@ import com.example.domain.register.dtos.MovieD
 class MapperMovies {
 
     companion object {
-        private fun convertToMovieDataToMovieDomain(movie: Movie): MovieD {
+         private fun convertToMovieDataToMovieDomain(movie: Movie): MovieD {
             return MovieD(
                 adult = movie.adult,
                 backdropPath = movie.backdropPath,
