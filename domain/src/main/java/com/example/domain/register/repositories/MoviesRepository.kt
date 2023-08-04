@@ -7,4 +7,5 @@ import kotlinx.coroutines.flow.Flow
 interface MoviesRepository {
 
     suspend fun getMovies(): Flow<ResultMovies<List<MovieD>, Exception>>
+    suspend fun getRemoteMovies(): Flow<ResultMovies<List<MovieD>, Exception>>
 }
