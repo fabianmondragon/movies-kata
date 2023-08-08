@@ -1,6 +1,6 @@
 package com.example.domain.register.dtos
 
-data class UserDto(
+data class UserD(
     val userName: String = "",
     val password: String = "",
     val email: String = "",

@@ -3,7 +3,7 @@ package com.example.data.register
 import com.example.data.register.datasources.SigUpLocalDataSource
 import com.example.data.register.datasources.SigUpRemoteDataSource
 import com.example.domain.register.ResultMovies
-import com.example.domain.register.dtos.UserDto
+import com.example.domain.register.dtos.UserD
 import com.example.domain.register.repositories.SigUpRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,11 +14,11 @@ class SigUpRepositoryImpl @Inject constructor(
     private val sigUpRemoteDataSource: SigUpRemoteDataSource,
     private val sigUpLocalDataSource: SigUpLocalDataSource
 ) : SigUpRepository {
-    override suspend fun userIsSigUp(userToRegister: UserDto) {
+    override suspend fun userIsSigUp(userToRegister: UserD) {
 
     }
 
-    override suspend fun sigUpUser(userToRegister: UserDto): Flow<ResultMovies<UserDto, Exception>> {
+    override suspend fun sigUpUser(userToRegister: UserD): Flow<ResultMovies<UserD, Exception>> {
         try {
             val result = sigUpRemoteDataSource
                 .sigUpInFirebase(userToRegister)
