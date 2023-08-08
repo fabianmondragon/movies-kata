@@ -1,10 +1,10 @@
 package com.example.data.register.datasources
 
-import com.example.domain.register.dtos.UserDto
+import com.example.domain.register.dtos.UserD
 
 interface SigUpLocalDataSource {
 
-    suspend fun saveUser(user: UserDto)
-    suspend fun isRegistered(userToRegister: UserDto)
-    suspend fun registerLocal(userToRegister: UserDto)
+    suspend fun saveUser(user: UserD)
+    suspend fun isRegistered(userToRegister: UserD)
+    suspend fun registerLocal(userToRegister: UserD)
 }

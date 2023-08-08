@@ -12,11 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.katamovies.movies.screen.MoviesFragment
-import com.example.katamovies.signup.SigInFragment
+import com.example.katamovies.sigin.SigInFragment
+import com.example.katamovies.sigup.SigUpFragment
 import com.example.katamovies.ui.theme.KatamoviesTheme
 import com.example.katamovies.utils.Route
 import dagger.hilt.android.AndroidEntryPoint
@@ -42,16 +45,25 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun setupNavigation() {
     var navController = rememberNavController()
+
     NavHost(
         navController = navController,
-        startDestination = Route.SigIn.route
+        startDestination = "${Route.SigIn.route}/{sigUpUser}?"
     ) {
         composable(
-            route = Route.SigIn.route
-        )
-        {
-            goToMoviesFragment(navController)
+            route = "${Route.SigIn.route}/{sigUpUser}?",
+            arguments = listOf(navArgument("sigUpUser") { type = NavType.StringType })
+        ) { navBackStackEntry ->
+            val argValue = navBackStackEntry.arguments?.getString("sigUpUser")
+            goToSigIn(navController, argValue)
         }
+
+        composable(
+            route = Route.SigUp.route,
+        ) {
+            goToSigUp(navController)
+        }
+
         composable(
             route = Route.List.route
         ) {
@@ -61,13 +73,18 @@ fun setupNavigation() {
 }
 
 @Composable
-fun goToMoviesFragment(navController: NavHostController) {
+private fun goToSigUp(navController: NavController) {
+    SigUpFragment(navController)
+}
+
+@Composable
+private fun goToMoviesFragment(navController: NavHostController) {
     MoviesFragment(navController = navController)
 }
 
 @Composable
-fun goToSigIn(navController: NavController) {
-    SigInFragment(navController)
+private fun goToSigIn(navController: NavController, messageFromSigUp: String?) {
+    SigInFragment(navController, messageFromSigUp = messageFromSigUp)
 }
 
 @Composable

@@ -1,13 +1,13 @@
-package com.example.katamovies.signup
+package com.example.katamovies.sigin
 
 import androidx.lifecycle.ViewModel
-import com.example.domain.register.ResultMovies
-import com.example.domain.register.dtos.UserDto
 import com.example.domain.register.usescases.SigIngUseCase
+import com.example.katamovies.sigin.models.SigInUi
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,10 +16,16 @@ class SigInViewModel @Inject constructor(
 ): ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
-    fun logIn(){
+    private val _sigInUi : MutableStateFlow<SigInUi> = MutableStateFlow(
+        SigInUi()
+    )
+    val sigInUi = _sigInUi.asStateFlow()
+
+    fun logIn(messageFromSigUp: String?) {
+        /*
         coroutineScope.launch {
             sigIngUseCase.sigIngUser(
-                UserDto(
+                UserD(
                     userName = "mondra13@gmail.com",
                     password = "12345678",
                     email = "mondra16@gmail.com"
@@ -36,6 +42,14 @@ class SigInViewModel @Inject constructor(
 
             }
 
+        }
+
+         */
+    }
+
+    fun validateShowMessage(messageFromSigUp: String?) {
+        if (messageFromSigUp!= null){
+            _sigInUi.value = _sigInUi.value.copy(showMessage = true)
         }
     }
 }

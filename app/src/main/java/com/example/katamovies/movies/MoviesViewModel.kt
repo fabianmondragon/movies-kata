@@ -22,7 +22,6 @@ class MoviesViewModel @Inject constructor(
         MutableStateFlow(listOf())
     val listOfMoviesState = _listOfMoviesState.asStateFlow()
 
-
     fun getMovies() {
         coroutineScope.launch {
             moviesUseCase.getMovies().collect { resultMovies ->
