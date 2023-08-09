@@ -1,17 +1,25 @@
 package com.example.katamovies.sigin.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.ClickableText
 
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -19,10 +27,15 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.katamovies.R
 import com.example.katamovies.sigin.SigInViewModel
+import com.example.katamovies.sigin.goToSigUp
 import com.example.katamovies.sigin.models.SigInUi
 import com.example.katamovies.sigin.tryToSigIn
-
+import com.example.katamovies.ui.theme.CustomYellow
+import com.example.katamovies.ui.theme.Gray
+import com.example.katamovies.ui.theme.GrayLetter
+import java.io.StringReader
 
 @Composable
 fun SigInScreen(
@@ -30,19 +43,21 @@ fun SigInScreen(
     sigInViewModel: SigInViewModel,
     sigInUi: SigInUi
 ) {
-    //var password by remember { mutableStateOf("") }
-    //var email by remember { mutableStateOf("") }
     Box(
         modifier = Modifier
             .fillMaxSize()
+            .background(color = CustomYellow)
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
-                .padding(16.dp),
+                .padding(20.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Image(
+                painter = painterResource(id = R.drawable.imdb_logo), // Replace with your icon resource
+                contentDescription = stringResource(id = R.string.icon_description ), // Add a description for accessibility
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
@@ -53,7 +68,7 @@ fun SigInScreen(
                     sigInViewModel.emailErrorState.value = false
                 },
                 isError = sigInViewModel.emailErrorState.value,
-                placeholder = { Text("email") },
+                placeholder = { Text(stringResource(id =R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -61,7 +76,7 @@ fun SigInScreen(
             )
             if (sigInViewModel.emailErrorState.value) {
                 Text(
-                    text = "Please enter a valid email",
+                    text = stringResource(id = R.string.valid_email),
                     color = Color.Red,
                     style = TextStyle(
                         fontSize = 12.sp, // Adjust the font size here
@@ -69,7 +84,7 @@ fun SigInScreen(
                         color = Color.Red
                     ),
                     modifier = Modifier
-                        .padding(end = 8.dp)
+                        .padding(end = 10.dp)
                         .align(Alignment.End)
                 )
             }
@@ -87,7 +102,7 @@ fun SigInScreen(
                 ),
                 isError = sigInViewModel.passwordErrorState.value,
                 visualTransformation = PasswordVisualTransformation(),
-                placeholder = { Text("password") },
+                placeholder = { Text(stringResource(id = R.string.password)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -95,10 +110,10 @@ fun SigInScreen(
             )
             if (sigInViewModel.passwordErrorState.value) {
                 Text(
-                    text = "Password cannot be empty",
+                    text = stringResource(id = R.string.password_emtpy),
                     color = Color.Red,
                     modifier = Modifier
-                        .padding(end = 8.dp)
+                        .padding(end = 10.dp)
                         .align(Alignment.End),
                     style = TextStyle(
                         fontSize = 12.sp, // Adjust the font size here
@@ -107,7 +122,6 @@ fun SigInScreen(
                     )
                 )
             }
-
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -120,15 +134,77 @@ fun SigInScreen(
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(Gray)
+
             ) {
-                Text("Aceptar")
+                Text(stringResource(id = R.string.accept))
             }
+            Spacer(modifier = Modifier.height(16.dp))
+            Text(text =stringResource(id = R.string.enter_options),
+                color = GrayLetter )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row {
+                CircularImage(imageResource = R.drawable.apple_black_logo)
+                CircularImage(imageResource = R.drawable.facebook_icon)
+                CircularImage(imageResource = R.drawable.google__g__logo)
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+
+
+
+            Spacer(modifier = Modifier.height(10.dp))
+            CustomTextWithClickablePart(
+                onClick = {
+                    goToSigUp(navController)
+                }
+            )
         }
         CircularProgressBarWithShape(sigInUi.showIsLoading)
         ShowMessage(sigInUi.messageToShow)
     }
 }
 
+@Composable
+fun CircularImage(imageResource: Int) {
+    Box(
+        modifier = Modifier
+            .size(80.dp)
+            .clip(CircleShape)
+            .background(Color.White)
+            .padding(20.dp)
+    )
+    {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .clip(CircleShape)
+        ) {
+            androidx.compose.foundation.Image(
+                painter = painterResource(id = imageResource),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+        }
+    }
+}
+
+@Composable
+fun CustomTextWithClickablePart(onClick: () -> Unit) {
+    val annotatedString = buildAnnotatedString() {
+        append(stringResource(id = R.string.no_accounts))
+        pushStyle(SpanStyle(fontWeight = FontWeight.Bold))
+        append(stringResource(id = R.string.sigup))
+        pop()
+    }
+
+    ClickableText(
+        text = annotatedString,
+        onClick = {
+            onClick.invoke()
+        }
+    )
+}
 
 @Composable
 fun CircularProgressBarWithShape(isLoading: Boolean) {
@@ -154,7 +230,7 @@ fun ShowMessage(message: String) {
             AlertDialog(
                 onDismissRequest = { showDialog = false },
                 title = {
-                    Text(text = "Information")
+                    Text(text = stringResource(id = R.string.information))
                 },
                 text = {
                     Text(text = message)
@@ -164,12 +240,12 @@ fun ShowMessage(message: String) {
                         showDialog = false
 
                     }) {
-                        Text("OK")
+                        Text(stringResource(id = R.string.ok))
                     }
                 },
                 dismissButton = {
                     Button(onClick = { showDialog = false }) {
-                        Text("Cancel")
+                        Text(stringResource(id = R.string.cancel))
                     }
                 }
             )

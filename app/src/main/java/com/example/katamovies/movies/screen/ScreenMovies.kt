@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextOverflow
@@ -23,6 +24,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.register.dtos.MovieD
+import com.example.katamovies.R
 import com.example.katamovies.utils.LoadImageFromUrl
 
 @Composable
@@ -35,6 +37,7 @@ fun ScreenMovies(listOfMovies: List<MovieD>) {
 fun BuildSearchBar(listOfMovies: List<MovieD>) {
     var text by remember { mutableStateOf("") }
     var active by remember { mutableStateOf(false) }
+    val emptyString = stringResource(id = R.string.empty_string)
 
     SearchBar(
         modifier = Modifier.fillMaxWidth(),
@@ -51,7 +54,7 @@ fun BuildSearchBar(listOfMovies: List<MovieD>) {
             active = it
         },
         placeholder = {
-            Text(text = "Search")
+            Text(text = stringResource(id = R.string.search))
         },
         leadingIcon = {
             Icon(imageVector = Icons.Default.Search, contentDescription = "Search Icon")
@@ -63,11 +66,11 @@ fun BuildSearchBar(listOfMovies: List<MovieD>) {
                     contentDescription = "Close Icon",
                     modifier = Modifier.clickable {
                         if (text.isNotEmpty()) {
-                            text = ""
+                            text = emptyString
                         } else {
                             active = false
                         }
-                        text = ""
+                        text = emptyString
                     }
                 )
             }

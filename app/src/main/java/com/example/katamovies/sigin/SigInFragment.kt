@@ -1,6 +1,7 @@
 package com.example.katamovies.sigin
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,7 +24,9 @@ fun SigInFragment(
         sigInViewModel = sigInViewModel,
         resultToShowMessage
     )
+    gotToMovies(navController, resultToShowMessage.goToMovies)
 }
+
 @Composable
 private fun validateShowMessageFromSigUp(
     sigInViewModel: SigInViewModel,
@@ -48,6 +51,14 @@ fun goToSigUp(navController: NavController) {
     navController.navigate(Route.SigUp.route)
 }
 
-fun gotToMovies(navController: NavController) {
-    navController.navigate(Route.List.route)
+@Composable
+fun gotToMovies(navController: NavController, goToMovies: Boolean) {
+    if (goToMovies) {
+        LaunchedEffect(Unit) {
+            navController.navigate(Route.List.route) {
+                popUpTo(Route.List.route) { inclusive = true }
+            }
+        }
+    }
 }
+

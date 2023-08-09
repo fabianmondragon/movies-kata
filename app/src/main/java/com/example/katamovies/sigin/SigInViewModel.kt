@@ -30,7 +30,6 @@ class SigInViewModel @Inject constructor(
     val emailErrorState = mutableStateOf(false)
     val passwordErrorState = mutableStateOf(false)
 
-
     fun sigIn() {
         val email = emailState.value
         val password = passwordState.value
@@ -39,7 +38,6 @@ class SigInViewModel @Inject constructor(
             emailErrorState.value = true
             return
         }
-
         if (password.isBlank()) {
             passwordErrorState.value = true
             return
@@ -53,14 +51,20 @@ class SigInViewModel @Inject constructor(
                 when (response) {
                     is ResultMovies.Success -> {
                         delay(2000)
-                        _sigInUi.value = SigInUi(showIsLoading = false)
+                        _sigInUi.value =
+                            SigInUi(
+                                showIsLoading = false,
+                                showMessageFromSigUp = false,
+                                goToMovies = true
+                            )
+
                     }
                     is ResultMovies.Error -> {
                         delay(2000)
                         _sigInUi.value = SigInUi(
                             showIsLoading = false, messageToShow = response
                                 .error
-                                .message.toString()
+                                .message.toString(), showMessageFromSigUp = false
                         )
                     }
                 }
