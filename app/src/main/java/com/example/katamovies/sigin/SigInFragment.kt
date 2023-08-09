@@ -16,25 +16,32 @@ fun SigInFragment(
     sigInViewModel: SigInViewModel = hiltViewModel(),
     messageFromSigUp: String?
 ) {
-    sigInViewModel.logIn(messageFromSigUp)
-    validateShowMessageFromSigUp(sigInViewModel, messageFromSigUp)
-    SigInScreen(navController)
+    val resultToShowMessage by sigInViewModel.sigInUi.collectAsState(initial = SigInUi())
+    validateShowMessageFromSigUp(sigInViewModel, messageFromSigUp, resultToShowMessage)
+    SigInScreen(
+        navController = navController,
+        sigInViewModel = sigInViewModel,
+        resultToShowMessage
+    )
 }
-
 @Composable
 private fun validateShowMessageFromSigUp(
     sigInViewModel: SigInViewModel,
-    messageFromSigUp: String?
+    messageFromSigUp: String?,
+    sigInUi: SigInUi
 ) {
-    val sigInUi by sigInViewModel
-        .sigInUi.collectAsState(initial = SigInUi())
     sigInViewModel.validateShowMessage(messageFromSigUp)
-   if (sigInUi.showMessage)
+    if (sigInUi.showMessageFromSigUp)
         ShowMessage(messageFromSigUp!!)
 }
 
-fun tryToSigIn(navController: NavController) {
-    gotToMovies(navController)
+fun tryToSigIn(
+    navController: NavController,
+    viewModel: SigInViewModel,
+    email: String = "",
+    password: String = ""
+) {
+    viewModel.sigIn()
 }
 
 fun goToSigUp(navController: NavController) {
