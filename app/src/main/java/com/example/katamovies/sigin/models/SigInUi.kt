@@ -1,5 +1,8 @@
 package com.example.katamovies.sigin.models
 
-data class SigInUi (
-    val showMessage: Boolean = false
-        )
+data class SigInUi(
+    var showMessageFromSigUp: Boolean = false,
+    var messageToShow: String = "",
+    var showIsLoading: Boolean = false,
+    var showErrorInField: Boolean = false
+)
