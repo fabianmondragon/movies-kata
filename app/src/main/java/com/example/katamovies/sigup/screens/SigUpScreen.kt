@@ -11,6 +11,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.katamovies.R
 import com.example.katamovies.sigup.SigUpViewModel
 import kotlin.reflect.KFunction4
 
@@ -50,7 +52,7 @@ fun SigUpScreen(
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(8.dp),
-                text = "Crear una cuenta ",
+                text = stringResource(id = R.string.account_created),
                 style = MaterialTheme.typography.headlineSmall
             )
 
@@ -59,7 +61,7 @@ fun SigUpScreen(
             TextField(
                 value = username,
                 onValueChange = { username = it },
-                placeholder = { Text("User Name") },
+                placeholder = { Text(stringResource(id = R.string.user_name)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -70,7 +72,7 @@ fun SigUpScreen(
             TextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text("email") },
+                placeholder = { Text(stringResource(id = R.string.email)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -86,7 +88,7 @@ fun SigUpScreen(
                     keyboardType = KeyboardType.Password
                 ),
                 visualTransformation = PasswordVisualTransformation(),
-                placeholder = { Text("password") },
+                placeholder = { Text(stringResource(id = R.string.password)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
@@ -97,7 +99,7 @@ fun SigUpScreen(
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(8.dp),
-                text = "La contraseña debe contener 8 caracteres",
+                text = stringResource(id = R.string.password_caution),
                 style = MaterialTheme.typography.labelSmall
             )
 
@@ -109,7 +111,7 @@ fun SigUpScreen(
                 },
                 modifier = Modifier.fillMaxWidth(),
             ) {
-                Text("Aceptar")
+                Text(stringResource(id = R.string.accept))
             }
         }
 
@@ -141,7 +143,7 @@ fun ShowMessage(message: String) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
             title = {
-                Text(text = "Error")
+                Text(text = stringResource(id = R.string.error))
             },
             text = {
                 Text(text = message)
@@ -151,12 +153,12 @@ fun ShowMessage(message: String) {
                     showDialog = false
 
                 }) {
-                    Text("OK")
+                    Text(stringResource(id = R.string.ok))
                 }
             },
             dismissButton = {
                 Button(onClick = { showDialog = false }) {
-                    Text("Cancel")
+                    Text(stringResource(id = R.string.cancel))
                 }
             }
         )
