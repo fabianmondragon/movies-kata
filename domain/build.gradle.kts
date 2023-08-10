@@ -48,7 +48,22 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.44")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
+    testCompileOnly("junit:junit:4.13")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation ("app.cash.turbine:turbine:0.6.1")
+
+
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    testImplementation ("io.mockk:mockk:1.12.0")
+
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    testImplementation ("app.cash.turbine:turbine:0.6.1")
+
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

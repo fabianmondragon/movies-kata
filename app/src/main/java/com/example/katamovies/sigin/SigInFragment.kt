@@ -47,7 +47,10 @@ fun tryToSigIn(
     email: String = "",
     password: String = ""
 ) {
-    viewModel.sigIn()
+    if (viewModel.isEmailValid() && viewModel.isPasswordValid()){
+        viewModel.sigIn(email, password)
+    }
+
 }
 
 fun goToSigUp(navController: NavController) {

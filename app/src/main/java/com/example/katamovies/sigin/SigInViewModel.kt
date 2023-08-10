@@ -2,23 +2,23 @@ package com.example.katamovies.sigin
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.domain.register.ResultMovies
 import com.example.domain.register.sigin.usecases.SigIngUseCase
+import com.example.katamovies.di.IoDispatcher
 import com.example.katamovies.sigin.models.SigInUi
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class SigInViewModel @Inject constructor(
-    private val sigIngUseCase: SigIngUseCase
+    private val sigIngUseCase: SigIngUseCase,
+    @IoDispatcher private val testDispatcher: CoroutineDispatcher
+
 ) : ViewModel() {
-    private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val _sigInUi: MutableStateFlow<SigInUi> = MutableStateFlow(
         SigInUi()
@@ -30,19 +30,9 @@ class SigInViewModel @Inject constructor(
     val emailErrorState = mutableStateOf(false)
     val passwordErrorState = mutableStateOf(false)
 
-    fun sigIn() {
-        val email = emailState.value
-        val password = passwordState.value
+    fun sigIn(email: String, password: String) {
 
-        if (email.isBlank() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailErrorState.value = true
-            return
-        }
-        if (password.isBlank()) {
-            passwordErrorState.value = true
-            return
-        }
-        coroutineScope.launch {
+        viewModelScope.launch(testDispatcher) {
             _sigInUi.value = SigInUi(showIsLoading = true, showMessageFromSigUp = false)
             sigIngUseCase.sigIngUser(
                 email = email,
@@ -55,14 +45,14 @@ class SigInViewModel @Inject constructor(
                             SigInUi(
                                 showIsLoading = false,
                                 showMessageFromSigUp = false,
-                                goToMovies = true
+                                goToMovies = false
                             )
-
                     }
                     is ResultMovies.Error -> {
                         delay(2000)
                         _sigInUi.value = SigInUi(
-                            showIsLoading = false, messageToShow = response
+                            showIsLoading = false,
+                            messageToShow = response
                                 .error
                                 .message.toString(), showMessageFromSigUp = false
                         )
@@ -72,15 +62,25 @@ class SigInViewModel @Inject constructor(
         }
     }
 
-    private fun validateEmail(email: String) {
-        if (email.isBlank())
-            _sigInUi.value = SigInUi(messageToShow = "Please, there is a")
-
-    }
-
-    fun validateShowMessage(messageFromSigUp: String?) {
-        if (messageFromSigUp != null) {
-            _sigInUi.value = _sigInUi.value.copy(showMessageFromSigUp = true)
+    fun isEmailValid(): Boolean {
+        val email = emailState.value
+        val emailRegex = "^[A-Za-z](.*)([@]{1})(.{1,})(\\.)(.{1,})"
+        if (!email.matches(emailRegex.toRegex())) {
+            emailErrorState.value = true
+            return false
         }
+        return true
     }
+
+    fun isPasswordValid(): Boolean {
+        val password = passwordState.value
+        val passwordRegex =
+            Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$")
+        if (!password.matches(passwordRegex)) {
+            passwordErrorState.value = true
+            return false
+        }
+        return true
+    }
+
 }
