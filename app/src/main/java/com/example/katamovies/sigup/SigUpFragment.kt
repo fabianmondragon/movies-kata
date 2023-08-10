@@ -56,6 +56,7 @@ private fun sigUpUser(
     password: String,
     sigUpViewModel: SigUpViewModel
 ) {
+
     sigUpViewModel.sigUpUser(userName, email, password)
 
 }

@@ -57,6 +57,9 @@ android {
     }
 }
 
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
 dependencies {
     val compose_version = "1.2.0"
     constraints {
@@ -97,15 +100,21 @@ dependencies {
     // navigation
     implementation("androidx.navigation:navigation-compose:2.6.0")
 
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
     testCompileOnly("junit:junit:4.13")
     testRuntimeOnly("org.junit.vintage:junit-vintage-engine")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
-    testImplementation("org.mockito:mockito-core:3.11.2")
-    testImplementation("org.mockito:mockito-inline:3.11.2")
-    testImplementation("org.mockito:mockito-junit-jupiter:3.11.2")
+    testImplementation ("io.mockk:mockk:1.12.0")
+
+    testImplementation("androidx.arch.core:core-testing:2.1.0")
+
+    testImplementation ("app.cash.turbine:turbine:0.6.1")
+
+
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
