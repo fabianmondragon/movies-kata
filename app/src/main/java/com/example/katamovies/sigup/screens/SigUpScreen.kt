@@ -1,9 +1,7 @@
 package com.example.katamovies.sigup.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,15 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.katamovies.R
 import com.example.katamovies.sigup.SigUpViewModel
+import com.example.moviesuikit.buttons.CustomButton
+import com.example.moviesuikit.Text.CustomTextField
+import com.example.moviesuikit.dialog.CustomDialog
+import com.example.moviesuikit.loader.CustomLoader
+import com.example.moviesuikit.spacer.CustomSpacer
 import kotlin.reflect.KFunction4
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
@@ -56,43 +54,28 @@ fun SigUpScreen(
                 style = MaterialTheme.typography.headlineSmall
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            CustomSpacer.mediumSpacer()
 
-            TextField(
+            CustomTextField.NormalTextField(
                 value = username,
                 onValueChange = { username = it },
-                placeholder = { Text(stringResource(id = R.string.user_name)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .border(1.dp, Color.Transparent, MaterialTheme.shapes.medium)
+                placeholder = stringResource(id = R.string.user_name),
             )
-            Spacer(modifier = Modifier.height(2.dp))
 
-            TextField(
+            CustomSpacer.lowSpacer()
+
+            CustomTextField.NormalTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text(stringResource(id = R.string.email)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .border(1.dp, Color.Transparent, MaterialTheme.shapes.medium)
+                placeholder = stringResource(id = R.string.email),
             )
 
-            Spacer(modifier = Modifier.height(2.dp))
-            TextField(
+            CustomSpacer.lowSpacer()
+
+            CustomTextField.CustomTextFieldPassword(
                 value = password,
                 onValueChange = { password = it },
-                keyboardOptions = KeyboardOptions.Default.copy(
-                    imeAction = ImeAction.Done,
-                    keyboardType = KeyboardType.Password
-                ),
-                visualTransformation = PasswordVisualTransformation(),
-                placeholder = { Text(stringResource(id = R.string.password)) },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp)
-                    .border(1.dp, Color.Transparent, MaterialTheme.shapes.medium)
+                placeholder = stringResource(id = R.string.password)
             )
 
             Text(
@@ -103,64 +86,27 @@ fun SigUpScreen(
                 style = MaterialTheme.typography.labelSmall
             )
 
-            Spacer(modifier = Modifier.height(10.dp))
+            CustomSpacer.highSpacer()
 
-            Button(
-                onClick = {
+            CustomButton.CustomButtonFull(
+                onclick = {
                     onSigUpUser.invoke(username, email, password, viewModel)
                 },
-                modifier = Modifier.fillMaxWidth(),
-            ) {
-                Text(stringResource(id = R.string.accept))
-            }
-        }
-
-        CircularProgressBarWithShape(isLoading)
-
-    }
-}
-
-@Composable
-fun CircularProgressBarWithShape(isLoading: Boolean) {
-    if (isLoading) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(Color.Gray.copy(alpha = 0.5f))
-        ) {
-            CircularProgressIndicator(
-                modifier = Modifier.align(Alignment.Center)
+                text = stringResource(id = R.string.accept)
             )
         }
+
+        CustomLoader
+            .CircularProgressBarWithShape(isLoading = isLoading)
     }
 }
 
 @Composable
 fun ShowMessage(message: String) {
-    var showDialog by remember { mutableStateOf(true) }
-
-    if (showDialog) {
-        AlertDialog(
-            onDismissRequest = { showDialog = false },
-            title = {
-                Text(text = stringResource(id = R.string.error))
-            },
-            text = {
-                Text(text = message)
-            },
-            confirmButton = {
-                Button(onClick = {
-                    showDialog = false
-
-                }) {
-                    Text(stringResource(id = R.string.ok))
-                }
-            },
-            dismissButton = {
-                Button(onClick = { showDialog = false }) {
-                    Text(stringResource(id = R.string.cancel))
-                }
-            }
-        )
-    }
+    CustomDialog.CustomAlertDialog(
+        message = message,
+        title = stringResource(id = R.string.error),
+        okButton = stringResource(id = R.string.ok),
+        cancelButton = stringResource(id = R.string.cancel)
+    )
 }
