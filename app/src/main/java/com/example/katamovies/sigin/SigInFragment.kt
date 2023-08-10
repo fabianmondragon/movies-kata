@@ -18,6 +18,7 @@ fun SigInFragment(
     messageFromSigUp: String?
 ) {
     val resultToShowMessage by sigInViewModel.sigInUi.collectAsState(initial = SigInUi())
+
     validateShowMessageFromSigUp(sigInViewModel, messageFromSigUp, resultToShowMessage)
     SigInScreen(
         navController = navController,
@@ -33,9 +34,11 @@ private fun validateShowMessageFromSigUp(
     messageFromSigUp: String?,
     sigInUi: SigInUi
 ) {
-    sigInViewModel.validateShowMessage(messageFromSigUp)
     if (sigInUi.showMessageFromSigUp)
-        ShowMessage(messageFromSigUp!!)
+        messageFromSigUp?.let {
+            ShowMessage(messageFromSigUp!!)
+        }
+
 }
 
 fun tryToSigIn(

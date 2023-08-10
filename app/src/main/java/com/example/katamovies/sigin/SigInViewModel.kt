@@ -43,7 +43,7 @@ class SigInViewModel @Inject constructor(
             return
         }
         coroutineScope.launch {
-            _sigInUi.value = SigInUi(showIsLoading = true)
+            _sigInUi.value = SigInUi(showIsLoading = true, showMessageFromSigUp = false)
             sigIngUseCase.sigIngUser(
                 email = email,
                 password = password
