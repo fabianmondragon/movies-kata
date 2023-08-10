@@ -13,8 +13,8 @@ class SigUpUseCase (
         private val sigUpRepository: SigUpRepository,
         private val dispatcher: CoroutineDispatcher = Dispatchers.Main)
 {
-        suspend fun sigUpUser(userToRegister: UserD): Flow<ResultMovies<UserD, Exception>> = flow<ResultMovies<UserD, Exception>> {
-                 sigUpRepository.sigUpUser(userToRegister)
-        }.flowOn(dispatcher)
+        suspend fun sigUpUser(userToRegister: UserD): Flow<ResultMovies<UserD, Exception>>  {
+                 return sigUpRepository.sigUpUser(userToRegister)
+        }
 
 }

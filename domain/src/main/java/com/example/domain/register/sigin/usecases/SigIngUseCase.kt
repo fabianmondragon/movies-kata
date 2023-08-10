@@ -12,8 +12,8 @@ class SigIngUseCase(
     private val sigInRepository: SigInRepository,
     private val dispatcher: CoroutineDispatcher = Dispatchers.Main
    ){
-    suspend fun sigIngUser(email: String, password: String): Flow<ResultMovies<Boolean, Exception>> = flow<ResultMovies<Boolean, Exception>> {
+    suspend fun sigIngUser(email: String, password: String): Flow<ResultMovies<Boolean, Exception>> {
         //repository.userIsRegistered(user)
-         sigInRepository.sigIn(email = email, password = password)
-    }.flowOn(dispatcher)
+        return sigInRepository.sigIn(email = email, password = password)
+    }
 }

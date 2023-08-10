@@ -45,7 +45,7 @@ class SigInViewModel @Inject constructor(
                             SigInUi(
                                 showIsLoading = false,
                                 showMessageFromSigUp = false,
-                                goToMovies = false
+                                goToMovies = true
                             )
                     }
                     is ResultMovies.Error -> {
@@ -73,13 +73,14 @@ class SigInViewModel @Inject constructor(
     }
 
     fun isPasswordValid(): Boolean {
+        /*
         val password = passwordState.value
         val passwordRegex =
             Regex("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$")
         if (!password.matches(passwordRegex)) {
             passwordErrorState.value = true
             return false
-        }
+        }*/
         return true
     }
 
