@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.register.dtos.MovieD
 import com.example.katamovies.R
 import com.example.katamovies.utils.LoadImageFromUrl
+import com.example.moviesuikit.spacer.CustomSpacer
 
 @Composable
 fun ScreenMovies(listOfMovies: List<MovieD>) {
@@ -126,7 +127,7 @@ fun BuildBody(filteredMovies: List<MovieD>) {
                             color = Color.Black
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        CustomSpacer.mediumSpacer()
 
                         // Movie description
                         Text(
@@ -143,7 +144,7 @@ fun BuildBody(filteredMovies: List<MovieD>) {
                             overflow = TextOverflow.Ellipsis
                         )
 
-                        Spacer(modifier = Modifier.height(8.dp))
+                        CustomSpacer.mediumSpacer()
 
                         // Movie ranking
                         val rankingText = buildAnnotatedString {
