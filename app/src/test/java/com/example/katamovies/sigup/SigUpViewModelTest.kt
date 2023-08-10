@@ -33,7 +33,7 @@ class SigUpViewModelTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `test sigUpUser with success response`() = runTest {
+    fun `test sigUpUser with success response`() = runTest(testDispatcher) {
         // Given
         val userName = "TestUser"
         val email = "test@example.com"
@@ -64,7 +64,6 @@ class SigUpViewModelTest {
 
         // When
         sigUpViewModel.sigUpUser(userName, email, password)
-        testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
         val resultListSigUpUiValue = sigUpViewModel.resultListSigUpUi.value
