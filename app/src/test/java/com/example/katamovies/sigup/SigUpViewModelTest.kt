@@ -3,12 +3,15 @@ package com.example.katamovies.sigup
 import com.example.domain.register.ResultMovies
 import com.example.domain.register.dtos.UserD
 import com.example.domain.register.usescases.SigUpUseCase
+import com.example.katamovies.sigup.provider.createUserD
+import io.mockk.clearAllMocks
 
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.*
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
@@ -28,12 +31,17 @@ class SigUpViewModelTest {
     fun setUp() {
         MockitoAnnotations.initMocks(this)
         sigUpViewModel = SigUpViewModel(sigUpUseCase, testDispatcher)
+    }
 
+    @After
+    fun cleanup()
+    {
+        clearAllMocks()
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `test sigUpUser with success response`() = runTest(testDispatcher) {
+    fun `test sigUpUser with success response`() = runTest {
         // Given
         val userName = "TestUser"
         val email = "test@example.com"
@@ -41,7 +49,7 @@ class SigUpViewModelTest {
         coEvery { sigUpUseCase.sigUpUser(any()) } returns flowOf(any())
 
         // When
-        sigUpViewModel.sigUpUser(userName, email, password)
+        sigUpViewModel.sigUpUser(userD = UserD(userName, email, password))
         testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
@@ -56,14 +64,13 @@ class SigUpViewModelTest {
     @Test
     fun `test sigUpUser with error response`() = runTest {
         // Given
-        val userName = "TestUser"
-        val email = "test@example.com"
-        val password = "WeakPassword"
+        val userToTest = createUserD()
         val errorResponse = ResultMovies.Error(Exception("Some error"))
         coEvery { sigUpUseCase.sigUpUser(any()) } returns flowOf(errorResponse)
 
         // When
-        sigUpViewModel.sigUpUser(userName, email, password)
+        sigUpViewModel.sigUpUser(userToTest)
+        testDispatcher.scheduler.advanceUntilIdle()
 
         // Then
         val resultListSigUpUiValue = sigUpViewModel.resultListSigUpUi.value
@@ -71,5 +78,18 @@ class SigUpViewModelTest {
         assertEquals(true, resultListSigUpUiValue.answered)
         assertEquals(false, resultListSigUpUiValue.isSuccess)
         assertEquals("Occurrio un error", resultListSigUpUiValue.messageToShow)
+    }
+
+    @Test
+    fun `test transform with success`() {
+        // Given
+        val userToTest = createUserD()
+        // When
+        val transform = sigUpViewModel.transform("username", "email", "password")
+        // Then
+        assertEquals("email", transform.email)
+        assertEquals("username", transform.userName)
+        assertEquals("password", transform.password)
+
     }
 }
