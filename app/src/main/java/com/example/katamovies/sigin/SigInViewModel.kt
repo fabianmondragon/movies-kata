@@ -4,7 +4,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.register.ResultMovies
-import com.example.domain.register.sigin.usecases.SigIngUseCase
+import com.example.domain.sigin.usecases.SigIngUseCase
 import com.example.katamovies.di.IoDispatcher
 import com.example.katamovies.sigin.models.SigInUi
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +17,6 @@ import javax.inject.Inject
 class SigInViewModel @Inject constructor(
     private val sigIngUseCase: SigIngUseCase,
     @IoDispatcher private val testDispatcher: CoroutineDispatcher
-
 ) : ViewModel() {
 
     private val _sigInUi: MutableStateFlow<SigInUi> = MutableStateFlow(

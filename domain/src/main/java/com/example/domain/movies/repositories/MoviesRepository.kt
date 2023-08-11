@@ -1,4 +1,4 @@
-package com.example.domain.register.repositories
+package com.example.domain.movies.repositories
 
 import com.example.domain.register.ResultMovies
 import com.example.domain.register.dtos.MovieD

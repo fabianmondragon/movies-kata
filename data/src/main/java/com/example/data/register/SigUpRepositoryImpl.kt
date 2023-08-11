@@ -15,20 +15,14 @@ class SigUpRepositoryImpl @Inject constructor(
     private val sigUpLocalDataSource: SigUpLocalDataSource
 ) : SigUpRepository {
     override suspend fun userIsSigUp(userToRegister: UserD) {
-
     }
-
     override suspend fun sigUpUser(userToRegister: UserD): Flow<ResultMovies<UserD, Exception>> {
         try {
-            val result = sigUpRemoteDataSource
-                .sigUpInFirebase(userToRegister)
+            val result = sigUpRemoteDataSource.sigUpInFirebase(userToRegister)
             return result.map { response ->
                 when (response) {
                     is ResultMovies.Success -> {
-
                         ResultMovies.Success(value = response.value)
-                        //registerLocalDataSource.saveUser(user = response.value)
-                        // todo save in local data base
                     }
                     else -> {
                         val error: Exception = java.lang.Exception("There is a problem")

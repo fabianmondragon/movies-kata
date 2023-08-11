@@ -1,10 +1,10 @@
 package com.example.katamovies.di
 
-import com.example.domain.register.repositories.MoviesRepository
+import com.example.domain.movies.repositories.MoviesRepository
 import com.example.domain.register.repositories.SigUpRepository
-import com.example.domain.register.sigin.repository.SigInRepository
-import com.example.domain.register.usescases.MoviesUseCase
-import com.example.domain.register.sigin.usecases.SigIngUseCase
+import com.example.domain.sigin.repository.SigInRepository
+import com.example.domain.movies.usecase.MoviesUseCase
+import com.example.domain.sigin.usecases.SigIngUseCase
 import com.example.domain.register.usescases.SigUpUseCase
 import dagger.Module
 import dagger.Provides

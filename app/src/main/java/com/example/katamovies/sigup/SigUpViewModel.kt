@@ -3,6 +3,7 @@ package com.example.katamovies.sigup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.register.ResultMovies
+import com.example.domain.register.dtos.UserD
 import com.example.domain.register.usescases.SigUpUseCase
 import com.example.katamovies.di.IoDispatcher
 import com.example.katamovies.sigin.models.ResultSigUpUi
@@ -10,7 +11,6 @@ import com.example.katamovies.utils.convertParamsToUserD
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
@@ -25,12 +25,12 @@ class SigUpViewModel @Inject constructor(
     )
     val resultListSigUpUi = _resultListSigUpUi.asStateFlow()
 
-    fun sigUpUser(userName: String, email: String, password: String) {
-        val userToSigUp = convertParamsToUserD(userName, email, password)
+    fun sigUpUser(userD: UserD) {
+
         viewModelScope.launch(testDispatcher) {
             _resultListSigUpUi.value =
                 ResultSigUpUi(showIsLoading = true, answered = false, isSuccess = false)
-            sigUpUseCase.sigUpUser(userToSigUp)
+            sigUpUseCase.sigUpUser(userD)
                 .collect { result ->
                     when (result) {
                         is ResultMovies.Success -> {
@@ -54,6 +54,10 @@ class SigUpViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun transform(userName: String, email: String, password: String): UserD {
+        return convertParamsToUserD(userName, email, password)
     }
 
 }

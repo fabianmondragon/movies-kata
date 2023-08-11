@@ -1,7 +1,7 @@
-package com.example.domain.register.sigin.usecases
+package com.example.domain.sigin.usecases
 
 import com.example.domain.register.ResultMovies
-import com.example.domain.register.sigin.repository.SigInRepository
+import com.example.domain.sigin.repository.SigInRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

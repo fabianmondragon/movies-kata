@@ -1,4 +1,4 @@
-package com.example.domain.register.sigin.repository
+package com.example.domain.sigin.repository
 
 import com.example.domain.register.ResultMovies
 import kotlinx.coroutines.flow.Flow

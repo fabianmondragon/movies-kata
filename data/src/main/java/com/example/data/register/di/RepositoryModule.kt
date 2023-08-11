@@ -9,7 +9,7 @@ import com.example.data.sigin.repository.SigInRepositoryImpl
 import com.example.data.sigin.repository.datasources.definition.SigInRemoteDataSource
 import com.example.data.sigin.repository.datasources.impl.FirebaseSigInRemoteDataSourceImpl
 import com.example.domain.register.repositories.SigUpRepository
-import com.example.domain.register.sigin.repository.SigInRepository
+import com.example.domain.sigin.repository.SigInRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
