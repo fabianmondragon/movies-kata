@@ -2,7 +2,7 @@ package com.example.katamovies.sigin
 
 
 import com.example.domain.register.ResultMovies
-import com.example.domain.register.sigin.usecases.SigIngUseCase
+import com.example.domain.sigin.usecases.SigIngUseCase
 import io.mockk.coEvery
 import io.mockk.coVerify
 
@@ -59,7 +59,6 @@ class SigInViewModelTest {
         assertEquals(false, viewModel.sigInUi.value?.goToMovies)
         coVerify(exactly = 1) {
             sigIngUseCase.sigIngUser(email, password)
-
         }
     }
 

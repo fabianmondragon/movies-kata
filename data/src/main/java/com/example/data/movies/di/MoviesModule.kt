@@ -5,7 +5,7 @@ import com.example.data.movies.datasources.MoviesLocalDataSource
 import com.example.data.movies.datasources.MoviesLocalDataSourceImpl
 import com.example.data.movies.datasources.MoviesRemoteDataSource
 import com.example.data.movies.datasources.MoviesRemoteDataSourceImpl
-import com.example.domain.register.repositories.MoviesRepository
+import com.example.domain.movies.repositories.MoviesRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

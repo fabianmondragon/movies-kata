@@ -6,6 +6,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.katamovies.sigin.models.ResultSigUpUi
 import com.example.katamovies.sigup.screens.ShowMessage
@@ -46,8 +47,6 @@ private fun validaRespond(resultSigUpUi: ResultSigUpUi, navController: NavContro
             ShowMessage(message = resultSigUpUi.messageToShow)
         }
     }
-
-
 }
 
 private fun sigUpUser(
@@ -56,7 +55,6 @@ private fun sigUpUser(
     password: String,
     sigUpViewModel: SigUpViewModel
 ) {
-
-    sigUpViewModel.sigUpUser(userName, email, password)
-
+    val userD = sigUpViewModel.transform(userName, email, password)
+    sigUpViewModel.sigUpUser(userD)
 }

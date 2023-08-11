@@ -5,7 +5,7 @@ import com.example.data.movies.datasources.MoviesRemoteDataSource
 import com.example.data.movies.mappers.toMovieEntity
 import com.example.domain.register.ResultMovies
 import com.example.domain.register.dtos.MovieD
-import com.example.domain.register.repositories.MoviesRepository
+import com.example.domain.movies.repositories.MoviesRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject

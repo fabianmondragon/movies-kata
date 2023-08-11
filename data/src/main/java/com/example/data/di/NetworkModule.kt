@@ -1,4 +1,4 @@
-package com.example.data
+package com.example.data.di
 
 import com.example.data.movies.service.MoviesService
 import com.example.data.utils.ConstantData.Generals.BASE_URL
